@@ -1,0 +1,455 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище LavrentevMO_PC9_TestDemoEkzModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AttestationStudent">
+          <Key>
+            <PropertyRef Name="FIO_Student" />
+            <PropertyRef Name="Attestation_Number" />
+            <PropertyRef Name="Subject_Name" />
+          </Key>
+          <Property Name="FIO_Student" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Attestation_Number" Type="int" Nullable="false" />
+          <Property Name="Mark" Type="int" Nullable="false" />
+          <Property Name="Subject_Name" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="ThisMark_Date" Type="date" />
+          <Property Name="Description" Type="nvarchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="Groups">
+          <Key>
+            <PropertyRef Name="Group_Number" />
+          </Key>
+          <Property Name="Group_Number" Type="int" Nullable="false" />
+          <Property Name="Entrance_Year" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Students">
+          <Key>
+            <PropertyRef Name="FIO_Student" />
+          </Key>
+          <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FIO_Student" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="GroupNumber" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Subjects">
+          <Key>
+            <PropertyRef Name="Subject_Name" />
+          </Key>
+          <Property Name="Subject_Name" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Attestation_Form" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FIO_Teacher" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Teachers">
+          <Key>
+            <PropertyRef Name="FIO_Teacher" />
+          </Key>
+          <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FIO_Teacher" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Login" />
+          </Key>
+          <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Role" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_AttestationStudent_Students">
+          <End Role="Students" Type="Self.Students" Multiplicity="1" />
+          <End Role="AttestationStudent" Type="Self.AttestationStudent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Students">
+              <PropertyRef Name="FIO_Student" />
+            </Principal>
+            <Dependent Role="AttestationStudent">
+              <PropertyRef Name="FIO_Student" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AttestationStudent_Subjects">
+          <End Role="Subjects" Type="Self.Subjects" Multiplicity="1" />
+          <End Role="AttestationStudent" Type="Self.AttestationStudent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subjects">
+              <PropertyRef Name="Subject_Name" />
+            </Principal>
+            <Dependent Role="AttestationStudent">
+              <PropertyRef Name="Subject_Name" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Students_Groups">
+          <End Role="Groups" Type="Self.Groups" Multiplicity="1" />
+          <End Role="Students" Type="Self.Students" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="Group_Number" />
+            </Principal>
+            <Dependent Role="Students">
+              <PropertyRef Name="GroupNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Students_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Students" Type="Self.Students" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Login" />
+            </Principal>
+            <Dependent Role="Students">
+              <PropertyRef Name="Login" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Subjects_Teachers">
+          <End Role="Teachers" Type="Self.Teachers" Multiplicity="1" />
+          <End Role="Subjects" Type="Self.Subjects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teachers">
+              <PropertyRef Name="FIO_Teacher" />
+            </Principal>
+            <Dependent Role="Subjects">
+              <PropertyRef Name="FIO_Teacher" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Teachers_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Teachers" Type="Self.Teachers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Login" />
+            </Principal>
+            <Dependent Role="Teachers">
+              <PropertyRef Name="Login" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище LavrentevMO_PC9_TestDemoEkzModelContainer">
+          <EntitySet Name="AttestationStudent" EntityType="Self.AttestationStudent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Groups" EntityType="Self.Groups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Students" EntityType="Self.Students" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Subjects" EntityType="Self.Subjects" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Teachers" EntityType="Self.Teachers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AttestationStudent_Students" Association="Self.FK_AttestationStudent_Students">
+            <End Role="Students" EntitySet="Students" />
+            <End Role="AttestationStudent" EntitySet="AttestationStudent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AttestationStudent_Subjects" Association="Self.FK_AttestationStudent_Subjects">
+            <End Role="Subjects" EntitySet="Subjects" />
+            <End Role="AttestationStudent" EntitySet="AttestationStudent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Students_Groups" Association="Self.FK_Students_Groups">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="Students" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Students_Users" Association="Self.FK_Students_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Students" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Subjects_Teachers" Association="Self.FK_Subjects_Teachers">
+            <End Role="Teachers" EntitySet="Teachers" />
+            <End Role="Subjects" EntitySet="Subjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Teachers_Users" Association="Self.FK_Teachers_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Teachers" EntitySet="Teachers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LavrentevMO_PC9_TestDemoEkzModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AttestationStudent">
+          <Key>
+            <PropertyRef Name="FIO_Student" />
+            <PropertyRef Name="Attestation_Number" />
+            <PropertyRef Name="Subject_Name" />
+          </Key>
+          <Property Name="FIO_Student" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Attestation_Number" Type="Int32" Nullable="false" />
+          <Property Name="Mark" Type="Int32" Nullable="false" />
+          <Property Name="Subject_Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ThisMark_Date" Type="DateTime" Precision="0" />
+          <Property Name="Description" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Students" Relationship="Self.FK_AttestationStudent_Students" FromRole="AttestationStudent" ToRole="Students" />
+          <NavigationProperty Name="Subjects" Relationship="Self.FK_AttestationStudent_Subjects" FromRole="AttestationStudent" ToRole="Subjects" />
+        </EntityType>
+        <EntityType Name="Groups">
+          <Key>
+            <PropertyRef Name="Group_Number" />
+          </Key>
+          <Property Name="Group_Number" Type="Int32" Nullable="false" />
+          <Property Name="Entrance_Year" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Students" Relationship="Self.FK_Students_Groups" FromRole="Groups" ToRole="Students" />
+        </EntityType>
+        <EntityType Name="Students">
+          <Key>
+            <PropertyRef Name="FIO_Student" />
+          </Key>
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FIO_Student" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="GroupNumber" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AttestationStudent" Relationship="Self.FK_AttestationStudent_Students" FromRole="Students" ToRole="AttestationStudent" />
+          <NavigationProperty Name="Groups" Relationship="Self.FK_Students_Groups" FromRole="Students" ToRole="Groups" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Students_Users" FromRole="Students" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Subjects">
+          <Key>
+            <PropertyRef Name="Subject_Name" />
+          </Key>
+          <Property Name="Subject_Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Attestation_Form" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FIO_Teacher" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AttestationStudent" Relationship="Self.FK_AttestationStudent_Subjects" FromRole="Subjects" ToRole="AttestationStudent" />
+          <NavigationProperty Name="Teachers" Relationship="Self.FK_Subjects_Teachers" FromRole="Subjects" ToRole="Teachers" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Teachers">
+          <Key>
+            <PropertyRef Name="FIO_Teacher" />
+          </Key>
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FIO_Teacher" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Subjects" Relationship="Self.FK_Subjects_Teachers" FromRole="Teachers" ToRole="Subjects" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Teachers_Users" FromRole="Teachers" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Login" />
+          </Key>
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Role" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Students" Relationship="Self.FK_Students_Users" FromRole="Users" ToRole="Students" />
+          <NavigationProperty Name="Teachers" Relationship="Self.FK_Teachers_Users" FromRole="Users" ToRole="Teachers" />
+        </EntityType>
+        <Association Name="FK_AttestationStudent_Students">
+          <End Role="Students" Type="Self.Students" Multiplicity="1" />
+          <End Role="AttestationStudent" Type="Self.AttestationStudent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Students">
+              <PropertyRef Name="FIO_Student" />
+            </Principal>
+            <Dependent Role="AttestationStudent">
+              <PropertyRef Name="FIO_Student" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AttestationStudent_Subjects">
+          <End Role="Subjects" Type="Self.Subjects" Multiplicity="1" />
+          <End Role="AttestationStudent" Type="Self.AttestationStudent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subjects">
+              <PropertyRef Name="Subject_Name" />
+            </Principal>
+            <Dependent Role="AttestationStudent">
+              <PropertyRef Name="Subject_Name" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Students_Groups">
+          <End Role="Groups" Type="Self.Groups" Multiplicity="1" />
+          <End Role="Students" Type="Self.Students" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Groups">
+              <PropertyRef Name="Group_Number" />
+            </Principal>
+            <Dependent Role="Students">
+              <PropertyRef Name="GroupNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Students_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Students" Type="Self.Students" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Login" />
+            </Principal>
+            <Dependent Role="Students">
+              <PropertyRef Name="Login" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Subjects_Teachers">
+          <End Role="Teachers" Type="Self.Teachers" Multiplicity="1" />
+          <End Role="Subjects" Type="Self.Subjects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teachers">
+              <PropertyRef Name="FIO_Teacher" />
+            </Principal>
+            <Dependent Role="Subjects">
+              <PropertyRef Name="FIO_Teacher" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Teachers_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Teachers" Type="Self.Teachers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Login" />
+            </Principal>
+            <Dependent Role="Teachers">
+              <PropertyRef Name="Login" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LavrentevMO_PC9_TestDemoEkzEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AttestationStudent" EntityType="Self.AttestationStudent" />
+          <EntitySet Name="Groups" EntityType="Self.Groups" />
+          <EntitySet Name="Students" EntityType="Self.Students" />
+          <EntitySet Name="Subjects" EntityType="Self.Subjects" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Teachers" EntityType="Self.Teachers" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <AssociationSet Name="FK_AttestationStudent_Students" Association="Self.FK_AttestationStudent_Students">
+            <End Role="Students" EntitySet="Students" />
+            <End Role="AttestationStudent" EntitySet="AttestationStudent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AttestationStudent_Subjects" Association="Self.FK_AttestationStudent_Subjects">
+            <End Role="Subjects" EntitySet="Subjects" />
+            <End Role="AttestationStudent" EntitySet="AttestationStudent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Students_Groups" Association="Self.FK_Students_Groups">
+            <End Role="Groups" EntitySet="Groups" />
+            <End Role="Students" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Students_Users" Association="Self.FK_Students_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Students" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Subjects_Teachers" Association="Self.FK_Subjects_Teachers">
+            <End Role="Teachers" EntitySet="Teachers" />
+            <End Role="Subjects" EntitySet="Subjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Teachers_Users" Association="Self.FK_Teachers_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Teachers" EntitySet="Teachers" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище LavrentevMO_PC9_TestDemoEkzModelContainer" CdmEntityContainer="LavrentevMO_PC9_TestDemoEkzEntities">
+          <EntitySetMapping Name="AttestationStudent">
+            <EntityTypeMapping TypeName="LavrentevMO_PC9_TestDemoEkzModel.AttestationStudent">
+              <MappingFragment StoreEntitySet="AttestationStudent">
+                <ScalarProperty Name="FIO_Student" ColumnName="FIO_Student" />
+                <ScalarProperty Name="Attestation_Number" ColumnName="Attestation_Number" />
+                <ScalarProperty Name="Mark" ColumnName="Mark" />
+                <ScalarProperty Name="Subject_Name" ColumnName="Subject_Name" />
+                <ScalarProperty Name="ThisMark_Date" ColumnName="ThisMark_Date" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Groups">
+            <EntityTypeMapping TypeName="LavrentevMO_PC9_TestDemoEkzModel.Groups">
+              <MappingFragment StoreEntitySet="Groups">
+                <ScalarProperty Name="Group_Number" ColumnName="Group_Number" />
+                <ScalarProperty Name="Entrance_Year" ColumnName="Entrance_Year" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Students">
+            <EntityTypeMapping TypeName="LavrentevMO_PC9_TestDemoEkzModel.Students">
+              <MappingFragment StoreEntitySet="Students">
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="FIO_Student" ColumnName="FIO_Student" />
+                <ScalarProperty Name="GroupNumber" ColumnName="GroupNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Subjects">
+            <EntityTypeMapping TypeName="LavrentevMO_PC9_TestDemoEkzModel.Subjects">
+              <MappingFragment StoreEntitySet="Subjects">
+                <ScalarProperty Name="Subject_Name" ColumnName="Subject_Name" />
+                <ScalarProperty Name="Attestation_Form" ColumnName="Attestation_Form" />
+                <ScalarProperty Name="FIO_Teacher" ColumnName="FIO_Teacher" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="LavrentevMO_PC9_TestDemoEkzModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Teachers">
+            <EntityTypeMapping TypeName="LavrentevMO_PC9_TestDemoEkzModel.Teachers">
+              <MappingFragment StoreEntitySet="Teachers">
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="FIO_Teacher" ColumnName="FIO_Teacher" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="LavrentevMO_PC9_TestDemoEkzModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

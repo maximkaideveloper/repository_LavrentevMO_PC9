@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище LavrentevMO_PC9_TestDemoEkzModelContainer" CdmEntityContainer="LavrentevMO_PC9_TestDemoEkzEntities">
+    <EntitySetMapping Name="AttestationStudent">
+      <EntityTypeMapping TypeName="LavrentevMO_PC9_TestDemoEkzModel.AttestationStudent">
+        <MappingFragment StoreEntitySet="AttestationStudent">
+          <ScalarProperty Name="FIO_Student" ColumnName="FIO_Student" />
+          <ScalarProperty Name="Attestation_Number" ColumnName="Attestation_Number" />
+          <ScalarProperty Name="Mark" ColumnName="Mark" />
+          <ScalarProperty Name="Subject_Name" ColumnName="Subject_Name" />
+          <ScalarProperty Name="ThisMark_Date" ColumnName="ThisMark_Date" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Groups">
+      <EntityTypeMapping TypeName="LavrentevMO_PC9_TestDemoEkzModel.Groups">
+        <MappingFragment StoreEntitySet="Groups">
+          <ScalarProperty Name="Group_Number" ColumnName="Group_Number" />
+          <ScalarProperty Name="Entrance_Year" ColumnName="Entrance_Year" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Students">
+      <EntityTypeMapping TypeName="LavrentevMO_PC9_TestDemoEkzModel.Students">
+        <MappingFragment StoreEntitySet="Students">
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="FIO_Student" ColumnName="FIO_Student" />
+          <ScalarProperty Name="GroupNumber" ColumnName="GroupNumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Subjects">
+      <EntityTypeMapping TypeName="LavrentevMO_PC9_TestDemoEkzModel.Subjects">
+        <MappingFragment StoreEntitySet="Subjects">
+          <ScalarProperty Name="Subject_Name" ColumnName="Subject_Name" />
+          <ScalarProperty Name="Attestation_Form" ColumnName="Attestation_Form" />
+          <ScalarProperty Name="FIO_Teacher" ColumnName="FIO_Teacher" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="LavrentevMO_PC9_TestDemoEkzModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Teachers">
+      <EntityTypeMapping TypeName="LavrentevMO_PC9_TestDemoEkzModel.Teachers">
+        <MappingFragment StoreEntitySet="Teachers">
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="FIO_Teacher" ColumnName="FIO_Teacher" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="LavrentevMO_PC9_TestDemoEkzModel.Users">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

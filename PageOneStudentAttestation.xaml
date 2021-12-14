@@ -1,0 +1,67 @@
+﻿<Page x:Class="LavrentevMO_PC9_TestDemoEkz_Application.PageOneStudentAttestation"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="1080"
+	Title="PageOneStudentAttestation">
+    
+    <Page.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Arial"/>
+            <Setter Property="FontSize" Value="12"/>
+        </Style>
+    </Page.Resources>
+    
+
+    <Grid Width="1080">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+        
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            
+            <TextBlock Text="Дисциплина" Grid.Column="0"/>
+            <TextBlock Text="Ведущий преподаватель" Grid.Column="1"/>
+            <TextBlock Text="Аттестация 1" Grid.Column="2"/>
+            <TextBlock Text="Аттестация 2" Grid.Column="3"/>
+            <TextBlock Text="Аттестация 3" Grid.Column="4"/>
+            <TextBlock Text="Итого" Grid.Column="5"/>
+            <TextBlock Text="Оценка" Grid.Column="6"/>
+            
+        </Grid>
+
+        <Grid Grid.Row="1" Name="dataGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Name="TextBlockSubject" Grid.Column="0"/>
+            <TextBlock Name="TextBlockTeacher" Grid.Column="1"/>
+            <TextBlock Name="TextBlockAtt1" Grid.Column="2"/>
+            <TextBlock Name="TextBlockAtt2" Grid.Column="3"/>
+            <TextBlock Name="TextBlockAtt3" Grid.Column="4"/>
+            <TextBlock Name="TextBlockSum" Grid.Column="5"/>
+            <TextBlock Name="TextBlockLastMark" Grid.Column="6"/>
+
+        </Grid>
+
+    </Grid>
+</Page>
